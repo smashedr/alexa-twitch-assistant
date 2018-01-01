@@ -31,7 +31,7 @@ class Twitch(object):
             'Content-Type': 'application/json',
         }
         data = {'channel': {'status': title}}
-        r = requests.put(url, data=data, headers=headers)
+        r = requests.put(url, json=data, headers=headers)
         return r.json()
 
     def run_commercial(self, length=30):
