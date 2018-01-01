@@ -14,3 +14,4 @@ GetTitle what is my title
 GetTitle whats my title
 GetTitle my title
 GetTitle to get my title
+GetTitle to get my current title

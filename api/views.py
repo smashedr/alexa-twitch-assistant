@@ -60,9 +60,9 @@ def get_title(event):
 def get_channel(uuid):
     url = 'https://api.twitch.tv/kraken/channel'
     headers = {
-        'Accept: application/vnd.twitchtv.v5+json',
-        'Client-ID: {}'.format(config.get('Provider', 'client_id')),
-        'Authorization: OAuth {}'.format(get_access_token(uuid)),
+        'Accept': 'application/vnd.twitchtv.v5+json',
+        'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
+        'Authorization': 'OAuth {}'.format(get_access_token(uuid)),
     }
     r = requests.get(url, headers=headers)
     logger.info(r.content)
