@@ -36,7 +36,7 @@ def alexa_post(request):
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
-        return alexa_resp('An error has occurred.', 'Error')
+        return alexa_resp('Error. {}'.format(error), 'Error')
 
 
 def update_title(event):
@@ -44,7 +44,10 @@ def update_title(event):
     title = event['request']['intent']['slots']['title']['value']
     title = title.title()
     logger.info('title: {}'.format(title))
-    speech = 'Your title will be updated to. {}'.format(title)
+    twitch = Twitch(event['session']['user']['accessToken'])
+    update = twitch.update_channel(title)
+    logger.info(update)
+    speech = 'Your title has been updated too. {}'.format(title)
     return alexa_resp(speech, 'Update Title')
 
 

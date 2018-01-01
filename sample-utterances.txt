@@ -5,14 +5,10 @@ UpdateTitle set my status to {slot value|title}
 UpdateTitle change my title to {slot value|title}
 UpdateTitle change my status to {slot value|title}
 
+GetTitle whats my current title
+GetTitle whats my current status
 GetTitle what is my current title
 GetTitle what is my current status
-GetTitle what is my title
-GetTitle what is my status
-GetTitle whats my title
-GetTitle whats my status
-GetTitle my title
-GetTitle my status
 GetTitle to get my current title
 GetTitle to get my current status
 
