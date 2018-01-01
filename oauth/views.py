@@ -67,13 +67,13 @@ def oauth_redirect(request):
         request.session['code'] = request.GET['code']
         logger.info('code: {}'.format(request.session['code']))
         oauth = get_token(request.session['code'])
+
         logger.info(oauth)
-        token_id = '{} {}'.format(
-            oauth['webhook']['id'], oauth['webhook']['token']
-        )
-        logger.info('id: {}'.format(oauth['webhook']['id']))
-        logger.info('token: {}'.format(oauth['webhook']['token']))
-        logger.info('token_id: {}'.format(token_id))
+        logger.info('refresh_token: {}'.format(oauth['refresh_token']))
+        logger.info('access_token: {}'.format(oauth['access_token']))
+
+        uuid = gen_rand(50)
+        code = gen_rand(25)
 
         try:
             td = TokenDatabase.objects.get(code=request.session['code'])
@@ -81,15 +81,10 @@ def oauth_redirect(request):
         except:
             pass
 
-        code = ''.join(
-            random.choice(
-                string.ascii_uppercase + string.digits
-            ) for _ in range(50)
-        )
-
         td = TokenDatabase(
+            uuid=uuid,
             code=code,
-            token=token_id,
+            refresh=oauth['refresh_token'],
         )
         td.save()
 
@@ -128,7 +123,7 @@ def give_token(request):
         try:
             if _code:
                 td = TokenDatabase.objects.get(code=_code)
-                token = td.token
+                uuid = td.uuid
             else:
                 raise ValueError('code null')
         except Exception as error:
@@ -138,7 +133,7 @@ def give_token(request):
             )
 
         token_resp = {
-            'access_token': token,
+            'access_token': uuid,
             'token_type': 'bearer',
         }
         return JsonResponse(token_resp)
@@ -195,6 +190,13 @@ def redirect_err(request, error='Unknown Error', name='error', tags='danger'):
     )
     return redirect(name)
 
+
+def gen_rand(length):
+    return ''.join(
+        random.choice(
+            string.ascii_uppercase + string.digits
+        ) for _ in range(length)
+    )
 
 def log_req(request):
     """
