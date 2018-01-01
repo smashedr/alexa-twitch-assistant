@@ -17,7 +17,7 @@ config = settings.CONFIG
 
 def has_error(request):
     """
-    # View  /error
+    # View  /oauth/error
     """
     return render(request, 'error.html')
 
@@ -25,7 +25,7 @@ def has_error(request):
 @require_http_methods(['GET'])
 def do_authorize(request):
     """
-    # View  /authorize
+    # View  /oauth/authorize
     """
     logger.info('do_authorize')
     log_req(request)
@@ -58,7 +58,7 @@ def do_authorize(request):
 @require_http_methods(['GET'])
 def oauth_redirect(request):
     """
-    # View  /redirect
+    # View  /oauth/redirect
     """
     logger.info('oauth_redirect')
     log_req(request)
@@ -104,7 +104,7 @@ def oauth_redirect(request):
 @require_http_methods(['POST'])
 def give_token(request):
     """
-    # View  /token
+    # View  /oauth/token
     """
     logger.info('give_token')
     log_req(request)
@@ -197,6 +197,7 @@ def gen_rand(length):
             string.ascii_uppercase + string.digits
         ) for _ in range(length)
     )
+
 
 def log_req(request):
     """

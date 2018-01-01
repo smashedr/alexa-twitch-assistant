@@ -13,6 +13,9 @@ logger = logging.getLogger('app')
 config = settings.CONFIG
 
 
+# Views
+
+
 @require_http_methods(["GET"])
 def api_home(request):
     log_req(request)
@@ -40,6 +43,9 @@ def alexa_post(request):
         return alexa_resp(speech, 'Error')
 
 
+# Intents
+
+
 def update_title(event):
     logger.info('UpdateTitle')
     title = event['request']['intent']['slots']['title']['value']
@@ -56,6 +62,8 @@ def get_title(event):
     speech = 'Your current title is. {}'.format(title)
     return alexa_resp(speech, 'Current Title')
 
+
+# Twitch API
 
 def get_channel(uuid):
     url = 'https://api.twitch.tv/kraken/channel'
@@ -90,6 +98,9 @@ def get_access_token(uuid):
     p.save()
     logger.info('access_token: {}'.format(access_token))
     return access_token
+
+
+# Alexa Functions
 
 
 def alexa_resp(speech, title, status=200, reprompt=None, session_end=True):
