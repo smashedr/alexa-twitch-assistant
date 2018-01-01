@@ -17,19 +17,21 @@ This will do many things...
 
 ## Testing Instructions
 
-...
+Connect your Twitch account and unlock unlimited possibilities.
 
 ## Short Skill Description
 
-...
+Automate Twitch actions with Alexa
 
 ## Full Skill Description
 
-...
+Allows you to manage your stream and run commercials with your Alexa. New features coming soon and added by request.
 
 ## Phrases
 
-- ...
+- Alexa, ask Twitch Assistant to get my current title
+- Alexa, ask Twitch Assistant to set my title to exclusive give away starting soon
+- Alexa, ask Twitch Assistant to run a commercial
 
 ## Keywords
 

@@ -45,7 +45,7 @@ def update_title(event):
     title = event['request']['intent']['slots']['title']['value']
     title = title.title()
     logger.info('title: {}'.format(title))
-    speech = 'Title will be updated to. {}'.format(title)
+    speech = 'Your title will be updated to. {}'.format(title)
     return alexa_resp(speech, 'Update Title')
 
 
@@ -54,7 +54,7 @@ def get_title(event):
     twitch = get_channel(event['session']['user']['accessToken'])
     title = twitch['status']
     speech = 'Your current title is. {}'.format(title)
-    return alexa_resp(speech, 'Update Title')
+    return alexa_resp(speech, 'Current Title')
 
 
 def get_channel(uuid):
