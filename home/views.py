@@ -26,7 +26,7 @@ def log_req(request):
             data += '"%s": "%s", ' % (key, value)
     if data:
         data = data.strip(', ')
-        logger.debug(data)
+        logger.info(data)
         json_string = '{%s}' % data
         return json_string
     else:

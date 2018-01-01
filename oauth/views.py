@@ -207,6 +207,6 @@ def log_req(request):
         for key, value in request.POST.items():
             data += '"%s": "%s", ' % (key, value)
     data = data.strip(', ')
-    logger.debug(data)
+    logger.info(data)
     json_string = '{%s}' % data
     return json_string
