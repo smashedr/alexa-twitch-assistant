@@ -27,6 +27,7 @@ def do_authorize(request):
     """
     # View  /authorize
     """
+    logger.info('do_authorize')
     log_req(request)
     try:
         if 'client_id' in request.GET:
@@ -59,6 +60,7 @@ def oauth_redirect(request):
     """
     # View  /redirect
     """
+    logger.info('oauth_redirect')
     log_req(request)
 
     try:
@@ -109,6 +111,7 @@ def give_token(request):
     """
     # View  /token
     """
+    logger.info('give_token')
     log_req(request)
     try:
         _code = request.POST.get('code')
