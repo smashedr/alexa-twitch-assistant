@@ -13,23 +13,25 @@ class Twitch(object):
         self.uuid = uuid
         self.access_token = self._get_access_token()
         self.channel = {}
+        self.url = 'https://api.twitch.tv/kraken'
 
     def get_channel(self):
         self._get_channel()
         return self.channel
 
-    def run_commercial(self):
+    def run_commercial(self, length=30):
         self._get_channel()
-        url = 'https://api.twitch.tv/kraken/channels/{}/commercial'.format(
-            self.channel['_id']
+        url = '{}/channels/{}/commercial'.format(
+            self.url, self.channel['_id']
         )
+        logger.info(url)
         headers = {
             'Accept': 'application/vnd.twitchtv.v5+json',
             'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
             'Authorization': 'OAuth {}'.format(self.access_token),
             'Content-Type': 'application/json',
         }
-        data = {'length': 30}
+        data = {'length': length}
         r = requests.post(url, data, headers=headers)
         logger.info(r.content)
         return r.json()
@@ -37,7 +39,7 @@ class Twitch(object):
     def _get_channel(self):
         logger.info('_get_channel')
         if not self.channel:
-            url = 'https://api.twitch.tv/kraken/channel'
+            url = '{}/channel'.format(self.url)
             headers = {
                 'Accept': 'application/vnd.twitchtv.v5+json',
                 'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
@@ -59,7 +61,7 @@ class Twitch(object):
             'grant_type': 'refresh_token',
             'redirect_uri': 'http://fire.cssnr.com:8080/',
         }
-        url = 'https://api.twitch.tv/kraken/oauth2/token'
+        url = '{}/oauth2/token'.format(self.url)
         r = requests.post(url, data)
         d = r.json()
         logger.info(d)

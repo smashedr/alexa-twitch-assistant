@@ -6,21 +6,11 @@
         {
           "name": "title",
           "type": "LITERAL"
-        },
-        {
-          "name": "title_names",
-          "type": "TITLE_NAMES"
         }
       ]
     },
     {
-      "intent": "GetTitle",
-      "slots": [
-        {
-          "name": "title_names",
-          "type": "TITLE_NAMES"
-        }
-      ]
+      "intent": "GetTitle"
     },
     {
       "intent": "RunCommercial"

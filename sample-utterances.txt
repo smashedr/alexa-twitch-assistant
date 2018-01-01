@@ -1,11 +1,19 @@
-GetTitle what is my current {title_names}
-GetTitle what is my {title_names}
-GetTitle whats my {title_names}
-GetTitle my {title_names}
-GetTitle to get my current {title_names}
+UpdateTitle update my title to {slot value|title}
+UpdateTitle update my status to {slot value|title}
+UpdateTitle set my title to {slot value|title}
+UpdateTitle set my status to {slot value|title}
+UpdateTitle change my title to {slot value|title}
+UpdateTitle change my status to {slot value|title}
 
-UpdateTitle update my {title_names} to {slot value|title}
-UpdateTitle set my {title_names} to {slot value|title}
-UpdateTitle change my {title_names} to {slot value|title}
+GetTitle what is my current title
+GetTitle what is my current status
+GetTitle what is my title
+GetTitle what is my status
+GetTitle whats my title
+GetTitle whats my status
+GetTitle my title
+GetTitle my status
+GetTitle to get my current title
+GetTitle to get my current status
 
 RunCommercial run a commercial

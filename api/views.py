@@ -1,20 +1,14 @@
 from django.conf import settings
-from django.db import transaction
-from django.http import JsonResponse
 from django.shortcuts import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from api.models import TokenDatabase
 from api.twitch import Twitch
+from api.alexa import alexa_resp
 import json
 import logging
-import requests
 
 logger = logging.getLogger('app')
 config = settings.CONFIG
-
-
-# View Functions
 
 
 @require_http_methods(["GET"])
@@ -45,9 +39,6 @@ def alexa_post(request):
         return alexa_resp('An error has occurred.', 'Error')
 
 
-# Intent Functions
-
-
 def update_title(event):
     logger.info('UpdateTitle')
     title = event['request']['intent']['slots']['title']['value']
@@ -70,102 +61,11 @@ def get_title(event):
 
 def run_commercial(event):
     logger.info('RunCommercial')
-    access_token = get_access_token(event['session']['user']['accessToken'])
-    twitch = t_get_channel(access_token)
-    t_run_commercial(access_token, twitch['_id'])
+    twitch = Twitch(event['session']['user']['accessToken'])
+    commercial = twitch.run_commercial()
+    logger.info(commercial)
     speech = 'A commercial has been started.'
     return alexa_resp(speech, 'Commercial Started')
-
-
-# Twitch API Functions
-
-
-def t_get_channel(access_token):
-    url = 'https://api.twitch.tv/kraken/channel'
-    headers = {
-        'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
-        'Authorization': 'OAuth {}'.format(access_token),
-    }
-    r = requests.get(url, headers=headers)
-    logger.info(r.content)
-    return r.json()
-
-
-def t_run_commercial(access_token, cid):
-    url = 'https://api.twitch.tv/kraken/channels/{}/commercial'.format(cid)
-    headers = {
-        'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
-        'Authorization': 'OAuth {}'.format(access_token),
-        'Content-Type': 'application/json',
-    }
-    data = {'length': 30}
-    r = requests.post(url, data, headers=headers)
-    logger.info(r.content)
-    return r.json()
-
-
-@transaction.atomic
-def get_access_token(uuid):
-    logger.info('get_access_token')
-    p = TokenDatabase.objects.get(uuid=uuid)
-    refresh_token = str(p.refresh)
-    data = {
-        'client_id': config.get('Provider', 'client_id'),
-        'client_secret': config.get('Provider', 'client_secret'),
-        'refresh_token': refresh_token,
-        'grant_type': 'refresh_token',
-        'redirect_uri': 'http://fire.cssnr.com:8080/',
-    }
-    url = 'https://api.twitch.tv/kraken/oauth2/token'
-    r = requests.post(url, data)
-    d = r.json()
-    logger.info(d)
-    access_token = d['access_token']
-    p.refresh = d['refresh_token']
-    p.save()
-    logger.info('access_token: {}'.format(access_token))
-    return access_token
-
-
-# Helper Functions
-
-
-def alexa_resp(speech, title, status=200, reprompt=None, session_end=True):
-    alexa = build_alexa_response(
-        {}, build_speech_response(title, speech, reprompt, session_end)
-    )
-    return JsonResponse(alexa, status=status)
-
-
-def build_speech_response(title, output, reprompt_text, should_end_session):
-    return {
-        'outputSpeech': {
-            'type': 'PlainText',
-            'text': output
-        },
-        'card': {
-            'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
-        },
-        'reprompt': {
-            'outputSpeech': {
-                'type': 'PlainText',
-                'text': reprompt_text
-            }
-        },
-        'shouldEndSession': should_end_session
-    }
-
-
-def build_alexa_response(session_attributes, speech_response):
-    return {
-        'version': '1.0',
-        'sessionAttributes': session_attributes,
-        'response': speech_response
-    }
 
 
 def log_req(request):

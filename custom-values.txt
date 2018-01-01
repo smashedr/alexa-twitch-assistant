@@ -1,5 +1,0 @@
-# TITLE_NAMES
-
-status
-title
-heading

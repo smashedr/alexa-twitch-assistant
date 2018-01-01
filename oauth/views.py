@@ -146,7 +146,7 @@ def give_token(request):
 
 def get_token(oauth_code):
     """
-    Send Oauth to Provider
+    Exchange Code for Token
     """
     data = {
         "client_id": config.get('Provider', 'client_id'),
