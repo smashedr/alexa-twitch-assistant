@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import logging
 
-logger = logging.getLogger('django')
+logger = logging.getLogger('app')
 
 
 @require_http_methods(["GET"])
@@ -21,6 +21,7 @@ def alexa_post(request):
     try:
         body = request.body.decode('utf-8')
         event = json.loads(body)
+        logger.info(event)
         intent = event['request']['intent']['name']
         if intent == 'PostMessage':
             return post_message(event)
