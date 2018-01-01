@@ -23,6 +23,7 @@ class Twitch(object):
     def update_channel(self, title):
         self._get_channel()
         url = '{}/channels/{}'.format(self.base_url, self.id)
+        logger.info('url: {}'.format(url))
         headers = {
             'Accept': 'application/vnd.twitchtv.v5+json',
             'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
@@ -31,6 +32,7 @@ class Twitch(object):
         }
         data = {'channel': {'status': title}}
         r = requests.put(url, data, headers=headers)
+        logger.info(r.content)
         return r.json()
 
     def run_commercial(self, length=30):
