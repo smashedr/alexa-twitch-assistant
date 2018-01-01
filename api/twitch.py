@@ -50,7 +50,7 @@ class Twitch(object):
     @transaction.atomic
     def _get_access_token(self):
         logger.info('_get_access_token')
-        p = TokenDatabase.objects.get(self.uuid)
+        p = TokenDatabase.objects.get(uuid=self.uuid)
         refresh_token = str(p.refresh)
         data = {
             'client_id': config.get('Provider', 'client_id'),
