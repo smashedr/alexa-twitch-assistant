@@ -5,7 +5,6 @@ from django.shortcuts import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from api.models import TokenDatabase
-from api.twitch import Twitch
 import json
 import logging
 import requests
@@ -42,7 +41,7 @@ def alexa_post(request):
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
-        speech = alexa_resp('An error has occurred.', 'Error')
+        speech = alexa_resp('Error. {}.'.format(error), 'Error')
         return alexa_resp(speech, 'Error')
 
 
@@ -60,11 +59,9 @@ def update_title(event):
 
 def get_title(event):
     logger.info('GetTitle')
-    twitch = Twitch(event['session']['user']['accessToken'])
-    channel = twitch.get_channel()
-    logger.info(channel)
-    title = channel['status']
-    logger.info('title: {}'.format(title))
+    access_token = get_access_token(event['session']['user']['accessToken'])
+    twitch = t_get_channel(access_token)
+    title = twitch['status']
     speech = 'Your current title is. {}'.format(title)
     return alexa_resp(speech, 'Current Title')
 
