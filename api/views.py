@@ -5,6 +5,7 @@ from django.shortcuts import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from api.models import TokenDatabase
+from api.twitch import Twitch
 import json
 import logging
 import requests
@@ -59,9 +60,9 @@ def update_title(event):
 
 def get_title(event):
     logger.info('GetTitle')
-    access_token = get_access_token(event['session']['user']['accessToken'])
-    twitch = t_get_channel(access_token)
-    title = twitch['status']
+    twitch = Twitch(event['session']['user']['accessToken'])
+    channel = twitch.get_channel()
+    title = channel['status']
     speech = 'Your current title is. {}'.format(title)
     return alexa_resp(speech, 'Current Title')
 
