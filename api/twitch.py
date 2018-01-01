@@ -11,9 +11,9 @@ config = settings.CONFIG
 class Twitch(object):
     def __init__(self, uuid):
         self.uuid = uuid
-        self.access_token = self._get_access_token()
         self.channel = {}
-        self.url = 'https://api.twitch.tv/kraken'
+        self.base_url = 'https://api.twitch.tv/kraken'
+        self.access_token = self._get_access_token()
 
     def get_channel(self):
         self._get_channel()
@@ -22,7 +22,7 @@ class Twitch(object):
     def run_commercial(self, length=30):
         self._get_channel()
         url = '{}/channels/{}/commercial'.format(
-            self.url, self.channel['_id']
+            self.base_url, self.channel['_id']
         )
         logger.info(url)
         headers = {
@@ -39,7 +39,7 @@ class Twitch(object):
     def _get_channel(self):
         logger.info('_get_channel')
         if not self.channel:
-            url = '{}/channel'.format(self.url)
+            url = '{}/channel'.format(self.base_url)
             headers = {
                 'Accept': 'application/vnd.twitchtv.v5+json',
                 'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
@@ -61,7 +61,7 @@ class Twitch(object):
             'grant_type': 'refresh_token',
             'redirect_uri': 'http://fire.cssnr.com:8080/',
         }
-        url = '{}/oauth2/token'.format(self.url)
+        url = '{}/oauth2/token'.format(self.base_url)
         r = requests.post(url, data)
         d = r.json()
         logger.info(d)
