@@ -84,6 +84,7 @@ def get_access_token(uuid):
     url = 'https://api.twitch.tv/kraken/oauth2/token'
     r = requests.post(url, data)
     d = r.json()
+    logger.info(d)
     access_token = d['access_token']
     p.refresh = d['refresh_token']
     p.save()
