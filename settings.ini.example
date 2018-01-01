@@ -1,0 +1,33 @@
+[App]
+debug          = True
+secret         = xxxxxxxxxxxxxxxxxxxx
+allowed_hosts  = *
+static_root    = C:\tmp
+home_site      = https://alexa-skills.solutions/
+
+[Logging]
+app_handler    = file
+app_level      = DEBUG
+django_handler = file
+django_level   = INFO
+log_file       = /var/log/alexa-twitch-assistant/django.log
+
+[Amazon]
+client_id      = xxxxxxxxxxxxxxxxxxxx
+client_secret  = xxxxxxxxxxxxxxxxxxxx
+redirect_uris  = https://pitangui.amazon.com/api/skill/link/xxxxxxxxxx
+
+[Provider]
+redirect_uri   = https://twitch-dev.alexa-skills.solutions/redirect
+authorize_uri  = https://api.twitch.tv/kraken/oauth2/authorize
+token_uri      = https://api.twitch.tv/api/oauth2/token
+oauth_scopes   = channel_commercial+channel_editor+channel_subscriptions+chat_login
+client_id      = xxxxxxxxxxxxxxxxxxxx
+client_secret  = xxxxxxxxxxxxxxxxxxxx
+
+[Database]
+name           = database
+user           = database
+pass           = xxxxxxxxxxxxxxxxxxxx
+host           = mysql
+port           = 3306
