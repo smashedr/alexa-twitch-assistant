@@ -1,0 +1,13 @@
+{
+  "intents": [
+    {
+      "intent": "UpdateTitle",
+      "slots": [
+        {
+          "name": "title",
+          "type": "LITERAL"
+        }
+      ]
+    }
+  ]
+}

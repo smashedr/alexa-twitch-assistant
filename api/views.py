@@ -1,11 +1,16 @@
+from django.conf import settings
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+from api.models import TokenDatabase
 import json
 import logging
+import requests
 
 logger = logging.getLogger('app')
+config = settings.CONFIG
 
 
 @require_http_methods(["GET"])
@@ -23,22 +28,44 @@ def alexa_post(request):
         event = json.loads(body)
         logger.info(event)
         intent = event['request']['intent']['name']
-        if intent == 'PostMessage':
-            return post_message(event)
+        if intent == 'UpdateTitle':
+            return update_title(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
-        a = alexa_resp('Error. {}.'.format(error), 'Error')
-        return alexa_resp(a, 'Error')
+        speech = alexa_resp('Error. {}.'.format(error), 'Error')
+        return alexa_resp(speech, 'Error')
 
 
-def post_message(event):
-    logger.info('PostMessage')
-    term = event['request']['intent']['slots']['term']['value'].strip()
-    logger.info('term: {}'.format(term))
-    speech = 'You said. {}'.format(term)
-    return alexa_resp(speech, 'Working')
+def update_title(event):
+    logger.info('UpdateTitle')
+    title = event['request']['intent']['slots']['title']['value'].strip()
+    logger.info('title: {}'.format(title))
+    speech = 'Title will be updated to. {}'.format(title)
+    return alexa_resp(speech, 'Update Title')
+
+
+@transaction.atomic
+def get_access_token(uuid):
+    logger.info('get_access_token')
+    p = TokenDatabase.objects.get(uuid=uuid)
+    refresh_token = str(p.refresh)
+    data = {
+        'client_id': config.get('Provider', 'client_id'),
+        'client_secret': config.get('Provider', 'client_secret'),
+        'refresh_token': refresh_token,
+        'grant_type': 'refresh_token',
+        'redirect_uri': 'http://fire.cssnr.com:8080/',
+    }
+    url = 'https://api.twitch.tv/kraken/oauth2/token'
+    r = requests.post(url, data)
+    d = r.json()
+    access_token = d['access_token']
+    p.refresh = d['refresh_token']
+    p.save()
+    logger.info('access_token: {}'.format(access_token))
+    return access_token
 
 
 def alexa_resp(speech, title, status=200, reprompt=None, session_end=True):

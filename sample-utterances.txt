@@ -1,0 +1,3 @@
+UpdateTitle update my title {slot value|title}
+UpdateTitle set my title {slot value|title}
+UpdateTitle change my title {slot value|title}
