@@ -7,3 +7,5 @@ GetTitle to get my current {title_names}
 UpdateTitle update my {title_names} to {slot value|title}
 UpdateTitle set my {title_names} to {slot value|title}
 UpdateTitle change my {title_names} to {slot value|title}
+
+RunCommercial run a commercial

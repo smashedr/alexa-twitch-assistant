@@ -13,7 +13,7 @@ logger = logging.getLogger('app')
 config = settings.CONFIG
 
 
-# Views
+# View Functions
 
 
 @require_http_methods(["GET"])
@@ -35,6 +35,8 @@ def alexa_post(request):
             return get_title(event)
         elif intent == 'UpdateTitle':
             return update_title(event)
+        elif intent == 'RunCommercial':
+            return run_commercial(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
@@ -43,7 +45,7 @@ def alexa_post(request):
         return alexa_resp(speech, 'Error')
 
 
-# Intents
+# Intent Functions
 
 
 def update_title(event):
@@ -57,22 +59,47 @@ def update_title(event):
 
 def get_title(event):
     logger.info('GetTitle')
-    twitch = get_channel(event['session']['user']['accessToken'])
+    access_token = get_access_token(event['session']['user']['accessToken'])
+    twitch = t_get_channel(access_token)
     title = twitch['status']
     speech = 'Your current title is. {}'.format(title)
     return alexa_resp(speech, 'Current Title')
 
 
-# Twitch API
+def run_commercial(event):
+    logger.info('RunCommercial')
+    access_token = get_access_token(event['session']['user']['accessToken'])
+    twitch = t_get_channel(access_token)
+    t_run_commercial(access_token, twitch['_id'])
+    speech = 'A commercial has been started.'
+    return alexa_resp(speech, 'Commercial Started')
 
-def get_channel(uuid):
+
+# Twitch API Functions
+
+
+def t_get_channel(access_token):
     url = 'https://api.twitch.tv/kraken/channel'
     headers = {
         'Accept': 'application/vnd.twitchtv.v5+json',
         'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
-        'Authorization': 'OAuth {}'.format(get_access_token(uuid)),
+        'Authorization': 'OAuth {}'.format(access_token),
     }
     r = requests.get(url, headers=headers)
+    logger.info(r.content)
+    return r.json()
+
+
+def t_run_commercial(access_token, cid):
+    url = 'https://api.twitch.tv/kraken/channels/{}/commercial'.format(cid)
+    headers = {
+        'Accept': 'application/vnd.twitchtv.v5+json',
+        'Client-ID': '{}'.format(config.get('Provider', 'client_id')),
+        'Authorization': 'OAuth {}'.format(access_token),
+        'Content-Type': 'application/json',
+    }
+    data = {'length': 30}
+    r = requests.post(url, data, headers=headers)
     logger.info(r.content)
     return r.json()
 
@@ -100,7 +127,7 @@ def get_access_token(uuid):
     return access_token
 
 
-# Alexa Functions
+# Helper Functions
 
 
 def alexa_resp(speech, title, status=200, reprompt=None, session_end=True):
