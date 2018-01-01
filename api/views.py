@@ -28,7 +28,9 @@ def alexa_post(request):
         event = json.loads(body)
         logger.info(event)
         intent = event['request']['intent']['name']
-        if intent == 'UpdateTitle':
+        if intent == 'GetTitle':
+            return get_title(event)
+        elif intent == 'UpdateTitle':
             return update_title(event)
         else:
             raise ValueError('Unknown Intent')
@@ -40,10 +42,31 @@ def alexa_post(request):
 
 def update_title(event):
     logger.info('UpdateTitle')
-    title = event['request']['intent']['slots']['title']['value'].strip()
+    title = event['request']['intent']['slots']['title']['value']
+    title = title.title()
     logger.info('title: {}'.format(title))
     speech = 'Title will be updated to. {}'.format(title)
     return alexa_resp(speech, 'Update Title')
+
+
+def get_title(event):
+    logger.info('GetTitle')
+    twitch = get_channel(event['session']['user']['accessToken'])
+    title = twitch['status']
+    speech = 'Your current title is. {}'.format(title)
+    return alexa_resp(speech, 'Update Title')
+
+
+def get_channel(uuid):
+    url = 'https://api.twitch.tv/kraken/channel'
+    headers = {
+        'Accept: application/vnd.twitchtv.v5+json',
+        'Client-ID: {}'.format(config.get('Provider', 'client_id')),
+        'Authorization: OAuth {}'.format(get_access_token(uuid)),
+    }
+    r = requests.get(url, headers=headers)
+    logger.info(r.content)
+    return r.json()
 
 
 @transaction.atomic

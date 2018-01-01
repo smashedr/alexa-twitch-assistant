@@ -1,3 +1,16 @@
-UpdateTitle update my title {slot value|title}
-UpdateTitle set my title {slot value|title}
-UpdateTitle change my title {slot value|title}
+UpdateTitle update my title to {slot value|title}
+UpdateTitle update my status to {slot value|title}
+UpdateTitle set my title to {slot value|title}
+UpdateTitle set my status to {slot value|title}
+UpdateTitle change my title to {slot value|title}
+UpdateTitle change my status to {slot value|title}
+
+GetTitle what is my current status
+GetTitle what is my status
+GetTitle whats my status
+GetTitle my status
+GetTitle to get my current status
+GetTitle what is my title
+GetTitle whats my title
+GetTitle my title
+GetTitle to get my title
