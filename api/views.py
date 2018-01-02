@@ -46,7 +46,7 @@ def alexa_post(request):
 def clear_chat(event):
     logger.info('ChatStatus')
     twitch = Twitch(event['session']['user']['accessToken'])
-    twitch.send_irc_msg('/clearchat')
+    twitch.send_irc_msg('/clear')
     return alexa_resp('Chat has been cleared.', 'Clear Chat')
 
 
@@ -73,7 +73,7 @@ def chat_status(event):
         speech = '{} mode turned on.'.format(mode)
         return alexa_resp(speech, 'Chat Mode')
     elif staticmethod == 'off' or status == 'disable':
-        twitch.set_chat_mode(chat_mode, True)
+        twitch.set_chat_mode(chat_mode, False)
         speech = '{} mode turned off.'.format(mode)
         return alexa_resp(speech, 'Chat Mode')
     else:
