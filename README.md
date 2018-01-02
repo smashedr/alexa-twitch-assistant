@@ -8,6 +8,14 @@ Twitch Assistant Endpoint for Alexa
 
 This will do many things...
 
+## Features
+
+Currently you can ask Twitch Assistant to do the following things:
+
+- Change Title
+- Run a Commercial
+- Turn slow/followers/r9k mode on/off
+
 ### Documentation
 
 - Alexa: https://developer.amazon.com/docs/custom-skills/link-an-alexa-user-with-a-user-in-your-system.html
@@ -21,18 +29,18 @@ Connect your Twitch account and unlock unlimited possibilities.
 
 ## Short Skill Description
 
-Automate Twitch actions with Alexa
+Manage your Twitch stream from Alexa
 
 ## Full Skill Description
 
-Allows you to manage your stream and run commercials with your Alexa. New features coming soon and added by request.
+Allows you to manage your stream with Alexa while performing. Currently you can turn emote/slow/r9k mode on or off, run a commercial, or get and set your stream status/title. Many new features coming soon, requests are welcome.
 
 ## Phrases
 
-- Alexa, ask Twitch Assistant to get my current title
-- Alexa, ask Twitch Assistant to set my title to exclusive give away starting soon
 - Alexa, ask Twitch Assistant to run a commercial
+- Alexa, ask Twitch Assistant to turn slow mode on
+- Alexa, ask Twitch Assistant to set my title to exclusive give away at the top of the hour
 
 ## Keywords
 
-Twitch Assistant Alexa, Twitch Assistant, Twitch Alexa, twitch-assistant
+Twitch,Twitch Assistant,Twitch Alexa Assistant,Twitch Control,Twitch Manager,Twitch Help,twitch-assistant

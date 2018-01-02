@@ -23,10 +23,13 @@
       ]
     },
     {
+      "intent": "RunCommercial"
+    },
+    {
       "intent": "GetTitle"
     },
     {
-      "intent": "RunCommercial"
+      "intent": "ClearChat"
     }
   ]
 }

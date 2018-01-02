@@ -34,11 +34,20 @@ def alexa_post(request):
             return run_commercial(event)
         elif intent == 'ChatStatus':
             return chat_status(event)
+        elif intent == 'ClearChat':
+            return clear_chat(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def clear_chat(event):
+    logger.info('ChatStatus')
+    twitch = Twitch(event['session']['user']['accessToken'])
+    twitch.send_irc_msg('/clearchat')
+    return alexa_resp('Chat has been cleared.', 'Clear Chat')
 
 
 def chat_status(event):

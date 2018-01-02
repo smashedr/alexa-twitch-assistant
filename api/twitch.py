@@ -22,6 +22,10 @@ class Twitch(object):
         self._get_channel()
         return self.channel
 
+    def send_irc_msg(self, message):
+        r = self._send_irc(message)
+        return r
+
     def set_chat_mode(self, command, enable=True):
         if enable:
             r = self._send_irc('/{}'.format(command))

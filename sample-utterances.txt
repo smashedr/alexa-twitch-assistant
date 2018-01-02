@@ -15,5 +15,9 @@ GetTitle to get my current status
 RunCommercial run a commercial
 
 ChatStatus turn {mode} mode {status}
-ChatStatus {mode} mode {status}
-ChatStatus {mode} mode {status}
+ChatStatus {status} {mode} mode
+ChatStatus {status} {mode} mode
+
+ClearChat to clear chat
+ClearChat to erase chat
+ClearChat to empty chat
