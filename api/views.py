@@ -46,10 +46,10 @@ def emote_only(event):
     status = event['request']['intent']['slots']['status']['value']
     logger.info('status: {}'.format(status))
     twitch = Twitch(event['session']['user']['accessToken'])
-    if status == 'on':
+    if status == 'on' or status == 'enable':
         twitch.emote_only(True)
         return alexa_resp('Emote Only mode turned on.', 'Emote Only')
-    elif staticmethod == 'off':
+    elif staticmethod == 'off' or status == 'disable':
         twitch.emote_only(False)
         return alexa_resp('Emote Only mode turned off.', 'Emote Only')
     else:

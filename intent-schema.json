@@ -1,6 +1,15 @@
 {
   "intents": [
     {
+      "intent": "EmoteOnly",
+      "slots": [
+        {
+          "name": "status",
+          "type": "STATUS_OPTIONS"
+        }
+      ]
+    },
+    {
       "intent": "UpdateTitle",
       "slots": [
         {

@@ -1,0 +1,6 @@
+# STATUS_OPTIONS
+
+on
+off
+enable
+disable
