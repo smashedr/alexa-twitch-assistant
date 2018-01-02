@@ -14,6 +14,6 @@ GetTitle to get my current status
 
 RunCommercial run a commercial
 
-EmoteOnly turn emote only mode {status}
-EmoteOnly {status} emote only mode
-EmoteOnly {status} emote only mode
+ChatStatus turn {mode} mode {status}
+ChatStatus {mode} mode {status}
+ChatStatus {mode} mode {status}

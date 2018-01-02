@@ -1,11 +1,15 @@
 {
   "intents": [
     {
-      "intent": "EmoteOnly",
+      "intent": "ChatStatus",
       "slots": [
         {
           "name": "status",
           "type": "STATUS_OPTIONS"
+        },
+        {
+          "name": "mode",
+          "type": "CHAT_MODES"
         }
       ]
     },

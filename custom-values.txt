@@ -4,3 +4,10 @@ on
 off
 enable
 disable
+
+# CHAT_MODES
+
+emote only
+follower only
+are nine kay
+slow

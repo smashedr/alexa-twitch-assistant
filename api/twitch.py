@@ -22,11 +22,11 @@ class Twitch(object):
         self._get_channel()
         return self.channel
 
-    def emote_only(self, enable=True):
+    def set_chat_mode(self, command, enable=True):
         if enable:
-            r = self._send_irc('/emoteonly')
+            r = self._send_irc('/{}'.format(command))
         else:
-            r = self._send_irc('/emoteonlyoff')
+            r = self._send_irc('/{}off'.format(command))
         return r
 
     def update_channel(self, title):

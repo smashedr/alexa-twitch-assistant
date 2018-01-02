@@ -32,8 +32,8 @@ def alexa_post(request):
             return update_title(event)
         elif intent == 'RunCommercial':
             return run_commercial(event)
-        elif intent == 'EmoteOnly':
-            return emote_only(event)
+        elif intent == 'ChatStatus':
+            return chat_status(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
@@ -41,19 +41,34 @@ def alexa_post(request):
         return alexa_resp('Error. {}'.format(error), 'Error')
 
 
-def emote_only(event):
-    logger.info('EmoteOnly')
+def chat_status(event):
+    logger.info('ChatStatus')
     status = event['request']['intent']['slots']['status']['value']
+    mode = event['request']['intent']['slots']['mode']['value']
     logger.info('status: {}'.format(status))
+    logger.info('mode: {}'.format(mode))
+
+    if 'emote' in mode:
+        chat_mode = 'emoteonly'
+    elif 'nine' in mode:
+        chat_mode = 'r9kbeta'
+    elif 'slow' in mode:
+        chat_mode = 'slow'
+    else:
+        speech = 'Unknown chat mode. {}'.format(mode)
+        return alexa_resp(speech, 'Unknown Chat Mode')
+
     twitch = Twitch(event['session']['user']['accessToken'])
     if status == 'on' or status == 'enable':
-        twitch.emote_only(True)
-        return alexa_resp('Emote Only mode turned on.', 'Emote Only')
+        twitch.set_chat_mode(chat_mode, True)
+        speech = '{} mode turned on.'.format(mode)
+        return alexa_resp(speech, 'Chat Mode')
     elif staticmethod == 'off' or status == 'disable':
-        twitch.emote_only(False)
-        return alexa_resp('Emote Only mode turned off.', 'Emote Only')
+        twitch.set_chat_mode(chat_mode, True)
+        speech = '{} mode turned off.'.format(mode)
+        return alexa_resp(speech, 'Chat Mode')
     else:
-        speech = 'Not sure if you want to turn emote only mode on or off.'
+        speech = 'Was unsure if you wanted to turn the mode on or off.'
         return alexa_resp(speech, 'Unknown Action')
 
 
