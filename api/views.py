@@ -63,6 +63,8 @@ def chat_status(event):
         chat_mode = 'r9kbeta'
     elif 'slow' in mode:
         chat_mode = 'slow'
+    elif 'follower' in mode:
+        chat_mode = 'followers'
     else:
         speech = 'Unknown chat mode. {}'.format(mode)
         return alexa_resp(speech, 'Unknown Chat Mode')
