@@ -32,11 +32,29 @@ def alexa_post(request):
             return update_title(event)
         elif intent == 'RunCommercial':
             return run_commercial(event)
+        elif intent == 'EmoteOnly':
+            return emote_only(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def emote_only(event):
+    logger.info('EmoteOnly')
+    status = event['request']['intent']['slots']['status']['value']
+    logger.info('status: {}'.format(status))
+    twitch = Twitch(event['session']['user']['accessToken'])
+    if status == 'on':
+        twitch.emote_only(True)
+        return alexa_resp('Emote Only mode turned on.', 'Emote Only')
+    elif staticmethod == 'off':
+        twitch.emote_only(False)
+        return alexa_resp('Emote Only mode turned off.', 'Emote Only')
+    else:
+        speech = 'Not sure if you want to turn emote only mode on or off.'
+        return alexa_resp(speech, 'Unknown Action')
 
 
 def update_title(event):

@@ -3,6 +3,7 @@ from django.db import transaction
 from api.models import TokenDatabase
 import logging
 import requests
+import socket
 
 logger = logging.getLogger('app')
 config = settings.CONFIG
@@ -11,14 +12,22 @@ config = settings.CONFIG
 class Twitch(object):
     def __init__(self, uuid):
         self.uuid = uuid
-        self.channel = {}
-        self.id = ''
         self.base_url = 'https://api.twitch.tv/kraken'
         self.access_token = self._get_access_token()
+        self.channel = {}
+        self.id = ''
+        self.name = ''
 
     def get_channel(self):
         self._get_channel()
         return self.channel
+
+    def emote_only(self, enable=True):
+        if enable:
+            r = self._send_irc('/emoteonly')
+        else:
+            r = self._send_irc('/emoteonlyoff')
+        return r
 
     def update_channel(self, title):
         self._get_channel()
@@ -64,6 +73,24 @@ class Twitch(object):
             logger.info(r.content)
             self.channel = r.json()
             self.id = self.channel['_id']
+            self.name = self.channel['name']
+
+    def _send_irc(self, message):
+        self._get_channel()
+        connect = ('irc.chat.twitch.tv', 6667)
+
+        def send_irc(msg):
+            irc.send('{}\n'.format(msg).encode())
+
+        irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        irc.settimeout(None)
+        irc.connect(connect)
+        send_irc('PASS oauth:{}'.format(self.access_token))
+        send_irc('NICK {0}'.format(self.name))
+        send_irc('PRIVMSG #{} :{}'.format(self.name, message))
+        r = irc.recv(1024).decode()
+        irc.close()
+        return r
 
     @transaction.atomic
     def _get_access_token(self):
