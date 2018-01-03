@@ -105,7 +105,8 @@ class Twitch(object):
             logger.info(r.content)
             d = r.json()
             self.stream = d['stream']
-            self.stream_id = self.stream['_id']
+            if self.stream:
+                self.stream_id = self.stream['_id']
 
     def _get_channel(self):
         logger.info('_get_channel')
