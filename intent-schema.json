@@ -42,6 +42,9 @@
     },
     {
       "intent": "GetFollows"
+    },
+    {
+      "intent": "GetGame"
     }
   ]
 }

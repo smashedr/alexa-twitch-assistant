@@ -32,4 +32,11 @@ GetFollows for total followers
 GetFollows for total follows
 GetFollows for current followers
 
+GetGame what game i am playing
+GetGame what is my current game
+GetGame what category i am in
+GetGame what category i'm in
+GetGame what section i'm in
+GetGame what section i am in
+
 RunCommercial run a commercial

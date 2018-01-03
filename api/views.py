@@ -40,11 +40,22 @@ def alexa_post(request):
             return send_chat(event)
         elif intent == 'GetFollows':
             return get_follows(event)
+        elif intent == 'GetGame':
+            return get_game(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def get_game(event):
+    logger.info('GetGame')
+    twitch = Twitch(event['session']['user']['accessToken'])
+    channel = twitch.get_channel()
+    logger.info('channel:game: {}'.format(channel['game']))
+    speech = 'You currently playing. {}'.format(channel['game'])
+    return alexa_resp(speech, 'Game')
 
 
 def get_follows(event):
