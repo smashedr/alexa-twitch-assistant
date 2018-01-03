@@ -12,17 +12,24 @@ GetTitle what is my current status
 GetTitle to get my current title
 GetTitle to get my current status
 
-RunCommercial run a commercial
-
 ChatStatus turn {mode} mode {status}
 ChatStatus {status} {mode} mode
 ChatStatus {status} {mode} mode
-
-ClearChat to clear chat
-ClearChat to erase chat
-ClearChat to empty chat
 
 SendChat to tell chat to {slot value|message}
 SendChat to tell chat {slot value|message}
 SendChat to say {slot value|message} in chat
 SendChat to say {slot value|message} to chat
+
+ClearChat to clear chat
+ClearChat to erase chat
+ClearChat to empty chat
+
+GetFollows how many followers i currently have
+GetFollows how many followers i have
+GetFollows how many followers
+GetFollows for total followers
+GetFollows for total follows
+GetFollows for current followers
+
+RunCommercial run a commercial

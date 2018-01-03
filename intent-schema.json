@@ -39,6 +39,9 @@
     },
     {
       "intent": "ClearChat"
+    },
+    {
+      "intent": "GetFollows"
     }
   ]
 }

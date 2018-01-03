@@ -38,11 +38,22 @@ def alexa_post(request):
             return clear_chat(event)
         elif intent == 'SendChat':
             return send_chat(event)
+        elif intent == 'GetFollows':
+            return get_follows(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def get_follows(event):
+    logger.info('GetFollows')
+    twitch = Twitch(event['session']['user']['accessToken'])
+    channel = twitch.get_channel()
+    logger.info('channel:followers: {}'.format(channel['followers']))
+    speech = 'You currently have {} followers.'.format(channel['followers'])
+    return alexa_resp(speech, 'Followers')
 
 
 def send_chat(event):
