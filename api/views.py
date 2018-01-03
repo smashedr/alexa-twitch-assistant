@@ -54,7 +54,7 @@ def get_game(event):
     twitch = Twitch(event['session']['user']['accessToken'])
     channel = twitch.get_channel()
     logger.info('channel:game: {}'.format(channel['game']))
-    speech = 'You currently playing. {}'.format(channel['game'])
+    speech = 'You are currently playing. {}'.format(channel['game'])
     return alexa_resp(speech, 'Game')
 
 

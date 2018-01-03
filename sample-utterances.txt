@@ -33,6 +33,7 @@ GetFollows for total follows
 GetFollows for current followers
 
 GetGame what game i am playing
+GetGame what game i'm playing
 GetGame what is my current game
 GetGame what category i am in
 GetGame what category i'm in
