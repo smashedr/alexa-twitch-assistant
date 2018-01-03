@@ -62,5 +62,7 @@ GetViewers for total viewers
 GetViewers for current viewers
 GetViewers to get total viewers
 GetViewers to get viewers
+GetViewers for viewer count
+GetViewers whats my current viewer count
 
 RunCommercial run a commercial

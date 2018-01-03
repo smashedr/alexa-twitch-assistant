@@ -51,7 +51,9 @@ Current Features:
 - Turn subscribers/followers/slow/emote/r9k on or off
 - Get and update/change your current status/title
 - Get your current game category
+- Get total current viewer count
 - Get total channel followers
+- Get total stream uptime
 - Send a message to chat
 - Clear chat
 - Run a commercial
