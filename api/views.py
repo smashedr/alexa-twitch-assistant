@@ -42,11 +42,22 @@ def alexa_post(request):
             return get_follows(event)
         elif intent == 'GetGame':
             return get_game(event)
+        elif intent == 'GetUptime':
+            return get_uptime(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def get_uptime(event):
+    logger.info('GetUptime')
+    twitch = Twitch(event['session']['user']['accessToken'])
+    uptime = twitch.get_uptime()
+    logger.info('uptime: {}'.format(uptime))
+    speech = 'You have been streaming for {}'.format(uptime)
+    return alexa_resp(speech, 'Stream Uptime')
 
 
 def get_game(event):

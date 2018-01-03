@@ -22,8 +22,8 @@ Currently you can ask Twitch Assistant to do the following things:
 
 - Alexa, ask Twitch Assistant to run a commercial
 - Alexa, ask Twitch Assistant to turn followers only mode on
+- Alexa, ask Twitch Assistant to change my title to give away starting soon
 - Alexa, ask Twitch Assistant to disable followers only mode
-- Alexa, ask Twitch Assistant to set my title to exclusive give away at the top of the hour
 - Alexa, ask Twitch Assistant to clear chat
 - Alexa, ask Twitch Assistant to get my current title
 
@@ -44,13 +44,25 @@ Manage your Twitch stream from Alexa
 
 ## Full Skill Description
 
-Allows you to manage your stream with Alexa while performing. Currently you can turn followers/slow/emote/r9k mode on or off, run a commercial, or get and set your stream status/title. Many new features coming soon, requests are welcome.
+Allows you to manage your stream with Alexa while performing live.
+
+Current Features:
+
+- Turn subscribers/followers/slow/emote/r9k on or off
+- Get and update/change your current status/title
+- Get your current game category
+- Get total channel followers
+- Send a message to chat
+- Clear chat
+- Run a commercial
+
+This skill is currently in beta testing. New features are being added and bugs are being squashed. Please let us know if there is any features you would like to see added.
 
 ## Phrases
 
 - Alexa, ask Twitch Assistant to run a commercial
 - Alexa, ask Twitch Assistant to turn followers only mode on
-- Alexa, ask Twitch Assistant to set my title to exclusive give away at the top of the hour
+- Alexa, ask Twitch Assistant to change my title to give away starting soon
 
 ## Keywords
 

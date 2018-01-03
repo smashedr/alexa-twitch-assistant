@@ -34,10 +34,20 @@ GetFollows for current followers
 
 GetGame what game i am playing
 GetGame what game i'm playing
+GetGame what my current game is
 GetGame what is my current game
 GetGame what category i am in
 GetGame what category i'm in
 GetGame what section i'm in
 GetGame what section i am in
+
+GetUptime for my uptime
+GetUptime for my stream uptime
+GetUptime for my total uptime
+GetUptime for my total stream uptime
+GetUptime for my current uptime
+GetUptime for my current stream uptime
+GetUptime how long i have been streaming
+GetUptime how long i've been streaming
 
 RunCommercial run a commercial

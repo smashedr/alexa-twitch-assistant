@@ -45,6 +45,9 @@
     },
     {
       "intent": "GetGame"
+    },
+    {
+      "intent": "GetUptime"
     }
   ]
 }
