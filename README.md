@@ -15,7 +15,17 @@ Currently you can ask Twitch Assistant to do the following things:
 - Change and get title/status
 - Run a commercial
 - Turn followers/slow/emote/r9k mode on/off
+- Send chat message
 - Clear chat
+
+## Example Phrases
+
+- Alexa, ask Twitch Assistant to run a commercial
+- Alexa, ask Twitch Assistant to turn followers only mode on
+- Alexa, ask Twitch Assistant to disable followers only mode
+- Alexa, ask Twitch Assistant to set my title to exclusive give away at the top of the hour
+- Alexa, ask Twitch Assistant to clear chat
+- Alexa, ask Twitch Assistant to get my current title
 
 ### Documentation
 

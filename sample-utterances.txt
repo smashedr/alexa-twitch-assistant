@@ -21,3 +21,8 @@ ChatStatus {status} {mode} mode
 ClearChat to clear chat
 ClearChat to erase chat
 ClearChat to empty chat
+
+SendChat to tell chat to {slot value|message}
+SendChat to tell chat {slot value|message}
+SendChat to say {slot value|message} in chat
+SendChat to say {slot value|message} to chat

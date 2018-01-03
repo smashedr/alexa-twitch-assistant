@@ -23,6 +23,15 @@
       ]
     },
     {
+      "intent": "SendChat",
+      "slots": [
+        {
+          "name": "message",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
       "intent": "RunCommercial"
     },
     {

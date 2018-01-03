@@ -11,12 +11,16 @@ config = settings.CONFIG
 
 class Twitch(object):
     def __init__(self, uuid):
+        self.version = 'kraken.v5'
         self.uuid = uuid
         self.base_url = 'https://api.twitch.tv/kraken'
         self.access_token = self._get_access_token()
         self.channel = {}
         self.id = ''
         self.name = ''
+
+    def __repr__(self):
+        return 'Twitch API class version: {}'.format(self.version)
 
     def get_channel(self):
         self._get_channel()
@@ -106,7 +110,7 @@ class Twitch(object):
             'client_secret': config.get('Provider', 'client_secret'),
             'refresh_token': refresh_token,
             'grant_type': 'refresh_token',
-            'redirect_uri': 'http://fire.cssnr.com:8080/',
+            'redirect_uri': config.get('Provider', 'redirect_uri'),
         }
         url = '{}/oauth2/token'.format(self.base_url)
         r = requests.post(url, data)

@@ -36,11 +36,21 @@ def alexa_post(request):
             return chat_status(event)
         elif intent == 'ClearChat':
             return clear_chat(event)
+        elif intent == 'SendChat':
+            return send_chat(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
         logger.exception(error)
         return alexa_resp('Error. {}'.format(error), 'Error')
+
+
+def send_chat(event):
+    logger.info('SendChat')
+    message = event['request']['intent']['slots']['message']['value']
+    twitch = Twitch(event['session']['user']['accessToken'])
+    twitch.send_irc_msg(message)
+    return alexa_resp('Message sent.', 'Send Chat Message')
 
 
 def clear_chat(event):
