@@ -44,6 +44,8 @@ def alexa_post(request):
             return get_game(event)
         elif intent == 'GetUptime':
             return get_uptime(event)
+        elif intent == 'GetViewers':
+            return get_viewers(event)
         else:
             raise ValueError('Unknown Intent')
     except Exception as error:
@@ -51,12 +53,27 @@ def alexa_post(request):
         return alexa_resp('Error. {}'.format(error), 'Error')
 
 
+def get_viewers(event):
+    logger.info('GetViewers')
+    twitch = Twitch(event['session']['user']['accessToken'])
+    stream = twitch.get_stream()
+    logger.info('stream: {}'.format(stream))
+    if not stream:
+        speech = 'Your stream is not live right now.'
+    else:
+        speech = 'You currently have {} viewers.'.format(stream['viewers'])
+    return alexa_resp(speech, 'Stream Viewers')
+
+
 def get_uptime(event):
     logger.info('GetUptime')
     twitch = Twitch(event['session']['user']['accessToken'])
     uptime = twitch.get_uptime()
     logger.info('uptime: {}'.format(uptime))
-    speech = 'You have been streaming for {}'.format(uptime)
+    if uptime == 'Not Online':
+        speech = 'Your stream is not live right now.'
+    else:
+        speech = 'You have been streaming for {}'.format(uptime)
     return alexa_resp(speech, 'Stream Uptime')
 
 

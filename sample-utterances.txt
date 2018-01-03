@@ -32,6 +32,10 @@ GetFollows for total followers
 GetFollows for total follows
 GetFollows for current followers
 
+GetGame tell me my current game
+GetGame tell me my game
+GetGame get my current game
+GetGame get my game
 GetGame what game i am playing
 GetGame what game i'm playing
 GetGame what my current game is
@@ -41,6 +45,8 @@ GetGame what category i'm in
 GetGame what section i'm in
 GetGame what section i am in
 
+GetUptime to tell me my uptime
+GetUptime to get my uptime
 GetUptime for my uptime
 GetUptime for my stream uptime
 GetUptime for my total uptime
@@ -49,5 +55,12 @@ GetUptime for my current uptime
 GetUptime for my current stream uptime
 GetUptime how long i have been streaming
 GetUptime how long i've been streaming
+
+GetViewers how many current viewers
+GetViewers how many viewers do i have
+GetViewers for total viewers
+GetViewers for current viewers
+GetViewers to get total viewers
+GetViewers to get viewers
 
 RunCommercial run a commercial
