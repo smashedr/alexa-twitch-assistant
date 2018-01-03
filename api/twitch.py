@@ -78,7 +78,7 @@ class Twitch(object):
     def get_uptime(self, human=True):
         self._get_stream()
         if self.stream:
-            stream_created_at = self.stream['started_at']
+            stream_created_at = self.stream['created_at']
             stream_created_date = datetime.strptime(
                 stream_created_at, '%Y-%m-%dT%H:%M:%SZ'
             )
