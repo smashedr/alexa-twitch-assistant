@@ -103,6 +103,8 @@ def chat_status(event):
         chat_mode = 'slow'
     elif 'follower' in mode:
         chat_mode = 'followers'
+    elif 'sub' in mode:
+        chat_mode = 'subscribers'
     else:
         speech = 'Unknown chat mode. {}'.format(mode)
         return alexa_resp(speech, 'Unknown Chat Mode')
@@ -117,7 +119,7 @@ def chat_status(event):
         speech = '{} mode turned off.'.format(mode)
         return alexa_resp(speech, 'Chat Mode')
     else:
-        speech = 'Was unsure if you wanted to turn the mode on or off.'
+        speech = 'I was unsure if you wanted to turn the mode on or off.'
         return alexa_resp(speech, 'Unknown Action')
 
 
