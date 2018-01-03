@@ -48,11 +48,13 @@ def alexa_post(request):
 def send_chat(event):
     logger.info('SendChat')
     message = event['request']['intent']['slots']['message']['value']
-    message = message.lstrip('chat', '')
+    message = message.lstrip('chat')
     message = message.strip()
-    message = message.lstrip('to', '')
+    message = message.lstrip('to')
     message = message.strip()
-    message = message.lstrip('say', '')
+    message = message.lstrip('say')
+    message = message.strip()
+    message = message.lstrip('i said')
     twitch = Twitch(event['session']['user']['accessToken'])
     twitch.send_irc_msg(message)
     return alexa_resp('Message sent.', 'Send Chat Message')
