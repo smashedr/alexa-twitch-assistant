@@ -59,9 +59,10 @@ def get_viewers(event):
     stream = twitch.get_stream()
     logger.info('stream: {}'.format(stream))
     if not stream:
-        speech = 'Your stream is not live right now.'
+        speech = 'You are not streaming right now.'
     else:
-        speech = 'You currently have {} viewers.'.format(stream['viewers'])
+        s = '' if int(stream['viewers']) == 1 else ''
+        speech = 'You have {} viewer{}.'.format(stream['viewers'], s)
     return alexa_resp(speech, 'Stream Viewers')
 
 
@@ -71,7 +72,7 @@ def get_uptime(event):
     uptime = twitch.get_uptime()
     logger.info('uptime: {}'.format(uptime))
     if uptime == 'Not Online':
-        speech = 'Your stream is not live right now.'
+        speech = 'You are not streaming right now.'
     else:
         speech = 'You have been streaming for {}'.format(uptime)
     return alexa_resp(speech, 'Stream Uptime')
