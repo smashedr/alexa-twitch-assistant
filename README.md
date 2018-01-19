@@ -6,7 +6,7 @@ Twitch Assistant Endpoint for Alexa
 
 ## Overview
 
-This will do many things...
+This will do many things... Soon.
 
 ## Features
 
